@@ -1,0 +1,25 @@
+service: medibase-medical-api
+package:
+  individually: true
+plugins:
+  - serverless-esbuild
+  - serverless-offline
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: us-west-2
+  timeout: 30
+  memorySize: 256
+custom:
+  esbuild:
+    bundle: true
+    minify: false
+  serverless-offline:
+    noPrependStageInUrl: true
+functions:
+  getDashboard:
+    handler: src/handlers/index.getDashboard
+    events:
+      - http:
+          method: get
+          path: /dashboard
