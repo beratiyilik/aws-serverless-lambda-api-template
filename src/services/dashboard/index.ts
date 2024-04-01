@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 
 import { logError, logInfo } from "utils/log";
-import { BadGatewayError } from "./../../middyWrapper/httpErrors";
+import { BadGatewayError } from "../../middy-wrapper/http-errors";
 import { BAD_GATEWAY_ERROR } from "../../constants/errors";
 
 export const getDashboard = async (): Promise<any> => {

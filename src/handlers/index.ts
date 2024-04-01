@@ -1,1 +1,2 @@
-export { getDashboard } from "./getDashboard";
+export { getVersion } from "./get-version";
+export { getDashboard } from "./get-dashboard";

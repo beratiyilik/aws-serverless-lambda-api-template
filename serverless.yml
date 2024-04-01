@@ -1,22 +1,42 @@
-service: medibase-medical-api
+service: aws-serverless-lambda-api-template
+
 package:
   individually: true
+
 plugins:
   - serverless-esbuild
+  - serverless-prune-plugin
   - serverless-offline
+  - serverless-plugin-git-variables
+
 provider:
   name: aws
-  runtime: nodejs12.x
+  runtime: nodejs20.x
   region: us-west-2
-  timeout: 30
+  timeout: 60
   memorySize: 256
+
 custom:
   esbuild:
     bundle: true
     minify: false
+  prune:
+    automatic: true
+    number: 3
   serverless-offline:
     noPrependStageInUrl: true
+    httpPort: 4000
+
 functions:
+  getVersion:
+    handler: src/handlers/index.getVersion
+    events:
+      - http:
+          method: get
+          path: version
+          cors:
+            origin: "*"
+  
   getDashboard:
     handler: src/handlers/index.getDashboard
     events:
