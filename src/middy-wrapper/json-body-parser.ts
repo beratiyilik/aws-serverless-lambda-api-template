@@ -3,6 +3,7 @@ import {
   ExtendedEvent,
   ExtendedResult,
 } from "../types/events";
+import { toObject } from "../utils";
 
 const customJsonBodyParser = () => {
   return {
@@ -13,7 +14,7 @@ const customJsonBodyParser = () => {
     }) => {
       if (handler.event.headers["Content-Type"] === "application/json") {
         try {
-          handler.event.body = JSON.parse(handler.event.body || "");
+          handler.event.body = toObject(handler.event.body || "");
         } catch (error) {
           console.error("Error parsing JSON body", error);
           throw new Error("Could not parse JSON body");

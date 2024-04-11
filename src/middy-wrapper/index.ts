@@ -11,7 +11,6 @@ import { LambdaMiddlewareOptions } from "../types/events";
 export const lambdaMiddyWrapper = ({
   lambda,
   inputSchema,
-
   auth = false,
   allowedPrincipals = [],
 }: LambdaMiddlewareOptions) => {
