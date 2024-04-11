@@ -14,35 +14,36 @@ import {
   ConflictError,
 } from "./http-errors";
 import { ExtendedResult } from "../types/events";
+import { toJSON } from "../utils/json";
 
 const errorHandlers: {
   [key: string]: (error: BaseError) => ExtendedResult;
 } = {
   [ERROR_KEYS.BAD_REQUEST_ERROR]: (error: BadRequestError) => ({
     statusCode: error.statusCode,
-    body: JSON.stringify({ error: error.description }),
+    body: toJSON({ error: error.description }),
   }),
   [ERROR_KEYS.UNAUTHORIZED_ERROR]: (error: UnauthorizedError) => ({
     statusCode: error.statusCode,
-    body: JSON.stringify({ error: error.description }),
+    body: toJSON({ error: error.description }),
   }),
   [ERROR_KEYS.FORBIDDEN_ERROR]: (error: ForbiddenError) => ({
     statusCode: error.statusCode,
-    body: JSON.stringify({ error: error.description }),
+    body: toJSON({ error: error.description }),
   }),
   [ERROR_KEYS.NOT_FOUND_ERROR]: (error: NotFoundError) => ({
     statusCode: error.statusCode,
-    body: JSON.stringify({ error: error.description }),
+    body: toJSON({ error: error.description }),
   }),
   [ERROR_KEYS.BAD_GATEWAY_ERROR]: (error: BadGatewayError) => ({
     statusCode: error.statusCode,
-    body: JSON.stringify({ error: error.description }),
+    body: toJSON({ error: error.description }),
   }),
   [ERROR_KEYS.FIELD_ERROR]: (error: BaseError) => {
     const fieldError = error as FieldError;
     return {
       statusCode: fieldError.statusCode,
-      body: JSON.stringify({
+      body: toJSON({
         error: fieldError.description,
         field: fieldError.field,
       }),
@@ -52,7 +53,7 @@ const errorHandlers: {
     const validationError = error as ValidationError;
     return {
       statusCode: error.statusCode,
-      body: JSON.stringify({
+      body: toJSON({
         error: validationError.description,
         errors: validationError.errors.map(({ field, description }) => ({
           field,
@@ -63,15 +64,15 @@ const errorHandlers: {
   },
   [ERROR_KEYS.INVALID_STATE_ERROR]: (error: InvalidStateError) => ({
     statusCode: error.statusCode,
-    body: JSON.stringify({ error: error.description }),
+    body: toJSON({ error: error.description }),
   }),
   [ERROR_KEYS.GONE_ERROR]: (error: GoneError) => ({
     statusCode: error.statusCode,
-    body: JSON.stringify({ error: error.description }),
+    body: toJSON({ error: error.description }),
   }),
   [ERROR_KEYS.CONFLICT_ERROR]: (error: ConflictError) => ({
     statusCode: error.statusCode,
-    body: JSON.stringify({ error: error.description }),
+    body: toJSON({ error: error.description }),
   }),
 };
 
@@ -82,7 +83,7 @@ export function handleErrorInGateway(error: Error): ExtendedResult {
   // undefined errors are treated as internal server errors
   return {
     statusCode: HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR,
-    body: JSON.stringify({
+    body: toJSON({
       error: "Internal server error",
       description: error.message,
     }),

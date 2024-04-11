@@ -1,16 +1,15 @@
 // httpResponses.ts
 import { HTTP_STATUS_CODES } from "../constants/http";
-import { stringify } from "../utils/string";
 import { ExtendedResult } from "../types/events";
 
 const Response = {
   Ok: (data?: any): ExtendedResult => ({
     statusCode: HTTP_STATUS_CODES.OK,
-    body: stringify(data),
+    body: data,
   }),
   Created: (data?: any): ExtendedResult => ({
     statusCode: HTTP_STATUS_CODES.CREATED,
-    body: stringify(data),
+    body: data,
   }),
   NoContent: (): ExtendedResult => ({
     statusCode: HTTP_STATUS_CODES.NO_CONTENT,
@@ -18,7 +17,7 @@ const Response = {
   }),
   BadRequest: (data?: any): ExtendedResult => ({
     statusCode: HTTP_STATUS_CODES.BAD_REQUEST,
-    body: data ? stringify(data) : "Bad Request",
+    body: data ? data : "Bad Request",
   }),
   Unauthorized: (): ExtendedResult => ({
     statusCode: HTTP_STATUS_CODES.UNAUTHORIZED,
@@ -26,19 +25,19 @@ const Response = {
   }),
   NotFound: (data?: any): ExtendedResult => ({
     statusCode: HTTP_STATUS_CODES.NOT_FOUND,
-    body: data ? stringify(data) : "Not Found",
+    body: data ? data : "Not Found",
   }),
   Conflict: (data?: any): ExtendedResult => ({
     statusCode: HTTP_STATUS_CODES.CONFLICT,
-    body: data ? stringify(data) : "Conflict",
+    body: data ? data : "Conflict",
   }),
   UnprocessableEntity: (data?: any): ExtendedResult => ({
     statusCode: HTTP_STATUS_CODES.UNPROCESSABLE_ENTITY,
-    body: data ? stringify(data) : "Unprocessable Entity",
+    body: data ? data : "Unprocessable Entity",
   }),
   InternalServerError: (data?: any): ExtendedResult => ({
     statusCode: HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR,
-    body: data ? stringify(data) : "Internal Server Error",
+    body: data ? data : "Internal Server Error",
   }),
   NotImplemented: (): ExtendedResult => ({
     statusCode: HTTP_STATUS_CODES.NOT_IMPLEMENTED,

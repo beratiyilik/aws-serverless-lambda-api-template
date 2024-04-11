@@ -11,10 +11,9 @@ import { LambdaMiddlewareOptions } from "../types/events";
 export const lambdaMiddyWrapper = ({
   lambda,
   inputSchema,
-  statusCode = 200,
-  resultBody = true,
-  defaultHeaders = {},
+
   auth = false,
+  allowedPrincipals = [],
 }: LambdaMiddlewareOptions) => {
   const middleware = middy(lambda)
     .use(httpHeaderNormalizer())
@@ -27,10 +26,15 @@ export const lambdaMiddyWrapper = ({
       })
     );
 
-  if (auth) middleware.use(customAuthMiddleware());
+  if (auth)
+    middleware.use(
+      customAuthMiddleware({
+        allowedPrincipals,
+      })
+    );
 
   return middleware
-    .use(customJsonResponder({ statusCode, resultBody, defaultHeaders }))
+    .use(customJsonResponder({}))
     .use(customErrorHandler())
     .use(cors());
 };
