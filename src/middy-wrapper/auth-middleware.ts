@@ -5,15 +5,15 @@ import {
   ExtendedEvent,
   ExtendedResult,
 } from "../types/events";
+import { logInfo } from "../utils/log";
 
 export const AUTHORIZATION_HEADER_NOT_FOUND = "Authorization header not found!";
 
-const customAuthMiddleware = (): MiddlewareObj<
-  ExtendedEvent,
-  ExtendedResult,
-  Error,
-  ExtendedContext
-> => {
+const customAuthMiddleware = ({
+  allowedPrincipals = [],
+}: {
+  allowedPrincipals?: string[];
+}): MiddlewareObj<ExtendedEvent, ExtendedResult, Error, ExtendedContext> => {
   return {
     before: async (
       request: middy.Request<
@@ -27,6 +27,8 @@ const customAuthMiddleware = (): MiddlewareObj<
       const token: string | undefined =
         event.headers.Authorization || event.headers.authorization;
       if (!token) throw new UnauthorizedError(AUTHORIZATION_HEADER_NOT_FOUND);
+
+      logInfo(allowedPrincipals);
 
       // Optional: Attach additional user info to the context if authentication succeeds
       // request.context.authUser = { userId: "user123" };

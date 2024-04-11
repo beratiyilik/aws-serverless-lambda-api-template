@@ -4,18 +4,24 @@ import {
   ExtendedEvent,
   ExtendedResult,
 } from "../types/events";
+import { toJSON } from "../utils/json";
+import { HTTP_STATUS_CODES } from "../constants/http";
 
 interface CustomJsonResponderOptions {
+  /*
   statusCode?: number;
   resultBody?: boolean;
   defaultHeaders?: { [header: string]: string | boolean | number };
+  */
 }
 
-const customJsonResponder = ({
-  statusCode = 200,
-  resultBody = true,
-  defaultHeaders = {},
-}: CustomJsonResponderOptions) => {
+const DEFAULT_HEADERS: { [header: string]: string | boolean | number } = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Credentials": true,
+  "Content-Type": "application/json",
+};
+
+const customJsonResponder = ({}: CustomJsonResponderOptions) => {
   return {
     after: async (
       request: middy.Request<
@@ -27,14 +33,24 @@ const customJsonResponder = ({
     ) => {
       if (!request.response) request.response = {} as ExtendedResult;
 
-      request.response.statusCode = request.response.statusCode || statusCode;
-      request.response.headers = {
-        ...defaultHeaders,
-        ...request.response.headers,
-        "Content-Type": "application/json",
+      const defaults = {
+        statusCode: HTTP_STATUS_CODES.OK,
+        defaultHeaders: DEFAULT_HEADERS,
       };
-      if (resultBody && !request.response.body)
-        request.response.body = JSON.stringify({});
+
+      request.response.statusCode =
+        request.response.statusCode || defaults.statusCode;
+
+      request.response.headers = {
+        ...defaults.defaultHeaders,
+        ...request.response.headers,
+      };
+
+      if (
+        request.response.body !== undefined &&
+        typeof request.response.body !== "string"
+      )
+        request.response.body = <string>toJSON(request.response.body);
     },
   };
 };
