@@ -27,6 +27,8 @@ const lambda: Lambda = async (): Promise<any> => {
   return Response.Ok(version);
 };
 
-export const getVersion = lambdaMiddyWrapper({
+const getVersion = lambdaMiddyWrapper({
   lambda,
 });
+
+export default getVersion;

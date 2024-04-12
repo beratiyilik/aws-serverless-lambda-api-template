@@ -1,55 +1,71 @@
-// httpResponses.ts
 import { HTTP_STATUS_CODES } from "../constants/http";
 import { ExtendedResult } from "../types/events";
 
+type Headers =
+  | { [header: string]: string | boolean | number }
+  | Record<string, string | boolean | number>
+  | undefined;
+
 const Response = {
-  Ok: (data?: any): ExtendedResult => ({
+  Ok: (data?: any, headers: Headers = {}): ExtendedResult => ({
     statusCode: HTTP_STATUS_CODES.OK,
     body: data,
+    headers: headers,
   }),
-  Created: (data?: any): ExtendedResult => ({
+  Created: (data?: any, headers: Headers = {}): ExtendedResult => ({
     statusCode: HTTP_STATUS_CODES.CREATED,
     body: data,
+    headers: headers,
   }),
-  NoContent: (): ExtendedResult => ({
+  NoContent: (headers: Headers = {}): ExtendedResult => ({
     statusCode: HTTP_STATUS_CODES.NO_CONTENT,
     body: "",
+    headers: headers,
   }),
-  BadRequest: (data?: any): ExtendedResult => ({
+  BadRequest: (data?: any, headers: Headers = {}): ExtendedResult => ({
     statusCode: HTTP_STATUS_CODES.BAD_REQUEST,
-    body: data ? data : "Bad Request",
+    body: data || "Bad Request",
+    headers: headers,
   }),
-  Unauthorized: (): ExtendedResult => ({
+  Unauthorized: (headers: Headers = {}): ExtendedResult => ({
     statusCode: HTTP_STATUS_CODES.UNAUTHORIZED,
     body: "Unauthorized",
+    headers: headers,
   }),
-  NotFound: (data?: any): ExtendedResult => ({
+  NotFound: (data?: any, headers: Headers = {}): ExtendedResult => ({
     statusCode: HTTP_STATUS_CODES.NOT_FOUND,
-    body: data ? data : "Not Found",
+    body: data || "Not Found",
+    headers: headers,
   }),
-  Conflict: (data?: any): ExtendedResult => ({
+  Conflict: (data?: any, headers: Headers = {}): ExtendedResult => ({
     statusCode: HTTP_STATUS_CODES.CONFLICT,
-    body: data ? data : "Conflict",
+    body: data || "Conflict",
+    headers: headers,
   }),
-  UnprocessableEntity: (data?: any): ExtendedResult => ({
+  UnprocessableEntity: (data?: any, headers: Headers = {}): ExtendedResult => ({
     statusCode: HTTP_STATUS_CODES.UNPROCESSABLE_ENTITY,
-    body: data ? data : "Unprocessable Entity",
+    body: data || "Unprocessable Entity",
+    headers: headers,
   }),
-  InternalServerError: (data?: any): ExtendedResult => ({
+  InternalServerError: (data?: any, headers: Headers = {}): ExtendedResult => ({
     statusCode: HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR,
-    body: data ? data : "Internal Server Error",
+    body: data || "Internal Server Error",
+    headers: headers,
   }),
-  NotImplemented: (): ExtendedResult => ({
+  NotImplemented: (headers: Headers = {}): ExtendedResult => ({
     statusCode: HTTP_STATUS_CODES.NOT_IMPLEMENTED,
     body: "Not Implemented",
+    headers: headers,
   }),
-  ServiceUnavailable: (): ExtendedResult => ({
+  ServiceUnavailable: (headers: Headers = {}): ExtendedResult => ({
     statusCode: HTTP_STATUS_CODES.SERVICE_UNAVAILABLE,
     body: "Service Unavailable",
+    headers: headers,
   }),
-  Forbidden: (data?: any): ExtendedResult => ({
+  Forbidden: (data?: any, headers: Headers = {}): ExtendedResult => ({
     statusCode: HTTP_STATUS_CODES.FORBIDDEN,
     body: data || "Forbidden",
+    headers: headers,
   }),
 };
 

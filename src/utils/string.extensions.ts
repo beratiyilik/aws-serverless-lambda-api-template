@@ -1,5 +1,8 @@
 import { toObject } from "./json";
 declare global {
+  interface StringConstructor {
+    // toObject<T>(obj: String, reviver?: (key: string, value: any) => any): T;
+  }
   interface String {
     isFalsyOrEmpty(): boolean;
     isFalsyOrWhiteSpace(): boolean;
@@ -21,5 +24,15 @@ String.prototype.toObject = function <T>(
 ): T {
   return toObject(this.toString(), reviver);
 };
+
+/*
+String.toObject = function <T>(
+  this: StringConstructor,
+  obj: String,
+  reviver?: (key: string, value: any) => any
+): T {
+  return toObject(obj.toString(), reviver);
+};
+*/
 
 export {};

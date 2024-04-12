@@ -4,14 +4,13 @@ import {
   ExtendedEvent,
   ExtendedResult,
 } from "../types/events";
-import { toJSON } from "../utils/json";
 import { HTTP_STATUS_CODES } from "../constants/http";
 
 interface CustomJsonResponderOptions {
   /*
   statusCode?: number;
   resultBody?: boolean;
-  defaultHeaders?: { [header: string]: string | boolean | number };
+  defaultHeaders?: { [header: string]: string | boolean | number } | undefined;
   */
 }
 
@@ -46,11 +45,9 @@ const customJsonResponder = ({}: CustomJsonResponderOptions) => {
         ...request.response.headers,
       };
 
-      if (
-        request.response.body !== undefined &&
-        typeof request.response.body !== "string"
-      )
-        request.response.body = <string>toJSON(request.response.body);
+      // request.response.body !== undefined && typeof request.response.body !== "string"
+      if (typeof request.response.body === "object")
+        request.response.body = (<object>request.response.body).toJSON();
     },
   };
 };

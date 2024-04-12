@@ -1,8 +1,10 @@
 {
   "compilerOptions": {
     "baseUrl": "./src",
-    "lib": ["es2018"],
-    "target": "es2017",
+    "lib": [
+      "es2022"
+    ],
+    "target": "es2022",
     "outDir": "lib",
     "moduleResolution": "node",
     "strict": true,
@@ -12,7 +14,21 @@
     "esModuleInterop": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/@types"
+    ],
+    "types": [
+      "node",
+      "jest",
+      "express",
+      "object.extensions",
+      "string.extensions",
+      "array.extensions",
+    ]
   },
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }
