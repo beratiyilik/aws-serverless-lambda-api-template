@@ -31,6 +31,7 @@ const customErrorHandler = () => {
     ): Promise<void> => {
       let error: Error = request.error as Error;
 
+      // this comes from inputSchema validation
       if (error.name === "BadRequestError") {
         const details = (error as any).details;
         if (Array.isArray(details))

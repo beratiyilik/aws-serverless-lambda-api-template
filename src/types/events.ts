@@ -28,9 +28,6 @@ export interface LambdaMiddlewareOptions {
   lambda: Lambda;
   allowedPrincipals?: string[];
   inputSchema?: Function | any;
-  // statusCode?: number;
-  // resultBody?: boolean;
-  // defaultHeaders?: Record<string, string | boolean | number>;
   auth?: boolean;
 }
 
@@ -44,8 +41,6 @@ export interface MiddlewareInput<E extends ExtendedEvent = ExtendedEvent> {
   lambda: EventHandler<E>;
   allowedPrincipals?: string[];
   inputSchema?: Function | any;
-  // statusCode?: number;
-  // resultBody?: boolean;
   auth?: boolean;
 }
 

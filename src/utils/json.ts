@@ -113,4 +113,4 @@ const toObject = <Type = unknown>(
   reviver?: (key: string, value: any) => any
 ): Type => JSON.parse(text, reviver);
 
-export { toJSON, toObject };
+export { toJSON, toObject, SerializationOptions };

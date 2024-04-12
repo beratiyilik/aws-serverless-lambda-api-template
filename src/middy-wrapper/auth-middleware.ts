@@ -5,7 +5,7 @@ import {
   ExtendedEvent,
   ExtendedResult,
 } from "../types/events";
-import { logInfo } from "../utils/log";
+import { logInfo } from "../utils";
 
 export const AUTHORIZATION_HEADER_NOT_FOUND = "Authorization header not found!";
 

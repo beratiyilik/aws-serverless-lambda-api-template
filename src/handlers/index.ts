@@ -1,2 +1,5 @@
-export { getVersion } from "./get-version";
-export { getDashboard } from "./get-dashboard";
+// entry point
+import "./../utils";
+// exports all the handlers
+export { default as getVersion } from "./get-version";
+export * from "./dashboard";
