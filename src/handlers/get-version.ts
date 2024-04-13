@@ -1,6 +1,6 @@
 import { Lambda } from "../types/events";
 import { lambdaMiddyWrapper } from "../middy-wrapper";
-import Response from "middy-wrapper/http-responses";
+import Response from "../middy-wrapper/http-responses";
 
 const get = async (): Promise<any> => {
   return {

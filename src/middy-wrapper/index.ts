@@ -10,7 +10,7 @@ import { LambdaMiddlewareOptions } from "../types/events";
 
 export const lambdaMiddyWrapper = ({
   lambda,
-  inputSchema,
+  eventSchema,
   auth = false,
   allowedPrincipals = [],
 }: LambdaMiddlewareOptions) => {
@@ -18,10 +18,10 @@ export const lambdaMiddyWrapper = ({
     .use(httpHeaderNormalizer())
     .use(customJsonBodyParser());
 
-  if (inputSchema)
+  if (eventSchema)
     middleware.use(
       validator({
-        eventSchema: inputSchema,
+        eventSchema,
       })
     );
 

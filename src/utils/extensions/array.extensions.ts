@@ -1,11 +1,3 @@
-declare global {
-  interface ArrayConstructor {}
-  interface Array<T> {
-    groupBy(fn: (item: T) => string): Record<string, T[]>;
-    thenBy(fn: (item: T) => string): T[];
-  }
-}
-
 Array.prototype.groupBy = function (fn) {
   return this.reduce((acc, item) => {
     const key = fn(item);

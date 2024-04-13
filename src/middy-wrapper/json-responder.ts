@@ -3,18 +3,13 @@ import {
   ExtendedContext,
   ExtendedEvent,
   ExtendedResult,
+  Headers,
 } from "../types/events";
 import { HTTP_STATUS_CODES } from "../constants/http";
 
-interface CustomJsonResponderOptions {
-  /*
-  statusCode?: number;
-  resultBody?: boolean;
-  defaultHeaders?: { [header: string]: string | boolean | number } | undefined;
-  */
-}
+interface CustomJsonResponderOptions {}
 
-const DEFAULT_HEADERS: { [header: string]: string | boolean | number } = {
+const DEFAULT_HEADERS: Headers = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Credentials": true,
   "Content-Type": "application/json",
@@ -32,22 +27,13 @@ const customJsonResponder = ({}: CustomJsonResponderOptions) => {
     ) => {
       if (!request.response) request.response = {} as ExtendedResult;
 
-      const defaults = {
-        statusCode: HTTP_STATUS_CODES.OK,
-        defaultHeaders: DEFAULT_HEADERS,
-      };
-
       request.response.statusCode =
-        request.response.statusCode || defaults.statusCode;
+        request.response.statusCode || HTTP_STATUS_CODES.OK;
 
       request.response.headers = {
-        ...defaults.defaultHeaders,
-        ...request.response.headers,
+        ...DEFAULT_HEADERS,
+        ...request.response?.headers,
       };
-
-      // request.response.body !== undefined && typeof request.response.body !== "string"
-      if (typeof request.response.body === "object")
-        request.response.body = (<object>request.response.body).toJSON();
     },
   };
 };

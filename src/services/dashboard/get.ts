@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { logError, logInfo } from "../../utils";
 import { BadGatewayError } from "../../middy-wrapper/http-errors";
 import { BAD_GATEWAY_ERROR } from "../../constants/errors";
 
@@ -79,10 +78,10 @@ export default async function (): Promise<any> {
         revenue: 730.45,
       },
     ];
-    logInfo(dashboardData);
+    Utils.logInfo(dashboardData);
     return dashboardData;
   } catch (error) {
-    logError(error);
+    Utils.logError(error);
     throw new BadGatewayError(BAD_GATEWAY_ERROR);
   }
 }
