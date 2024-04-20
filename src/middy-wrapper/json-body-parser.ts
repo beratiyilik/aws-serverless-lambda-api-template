@@ -1,4 +1,3 @@
-import { logError } from "../utils";
 import {
   ExtendedContext,
   ExtendedEvent,
@@ -14,9 +13,9 @@ const customJsonBodyParser = () => {
     }) => {
       if (handler.event.headers["Content-Type"] === "application/json") {
         try {
-          handler.event.body = (handler.event.body || "").toObject();
+          handler.event.body = Utils.toObject(handler.event.body || "");
         } catch (error) {
-          logError("Error parsing JSON body", error);
+          Utils.logError("Error parsing JSON body", error);
           throw new Error("Could not parse JSON body");
         }
       }

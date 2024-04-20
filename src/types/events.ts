@@ -7,6 +7,11 @@ import {
   Context,
 } from "aws-lambda";
 
+export type Headers =
+  | { [header: string]: string | boolean | number }
+  | Record<string, string | boolean | number>
+  | undefined;
+
 export interface ExtendedEvent extends APIGatewayProxyEvent {
   version?: string;
   claims?: Record<string, any>;
@@ -26,9 +31,9 @@ export type Lambda = (
 
 export interface LambdaMiddlewareOptions {
   lambda: Lambda;
-  allowedPrincipals?: string[];
-  inputSchema?: Function | any;
+  eventSchema?: Function | any;
   auth?: boolean;
+  allowedPrincipals?: string[];
 }
 
 export type EventHandler<E extends ExtendedEvent = ExtendedEvent> = (
@@ -39,15 +44,15 @@ export type EventHandler<E extends ExtendedEvent = ExtendedEvent> = (
 
 export interface MiddlewareInput<E extends ExtendedEvent = ExtendedEvent> {
   lambda: EventHandler<E>;
-  allowedPrincipals?: string[];
-  inputSchema?: Function | any;
+  eventSchema?: Function | any;
   auth?: boolean;
+  allowedPrincipals?: string[];
 }
 
 export interface MiddlewareOutput {
   statusCode: number;
   body: string;
-  headers?: Record<string, string | boolean | number>;
+  headers?: Headers;
 }
 
 export interface EventWithBody extends ExtendedEvent {

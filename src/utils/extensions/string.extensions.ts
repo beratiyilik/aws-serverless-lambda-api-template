@@ -1,14 +1,5 @@
-import { toObject } from "./json";
-declare global {
-  interface StringConstructor {
-    // toObject<T>(obj: String, reviver?: (key: string, value: any) => any): T;
-  }
-  interface String {
-    isFalsyOrEmpty(): boolean;
-    isFalsyOrWhiteSpace(): boolean;
-    toObject<T>(reviver?: (key: string, value: any) => any): T;
-  }
-}
+import { toObject } from "../json";
+
 String.prototype.isFalsyOrEmpty = function (): boolean {
   if (this === null || this === undefined) return true;
   return this === "";

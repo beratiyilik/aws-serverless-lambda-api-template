@@ -1,71 +1,66 @@
 import { HTTP_STATUS_CODES } from "../constants/http";
-import { ExtendedResult } from "../types/events";
-
-type Headers =
-  | { [header: string]: string | boolean | number }
-  | Record<string, string | boolean | number>
-  | undefined;
+import { ExtendedResult, Headers } from "../types/events";
 
 const Response = {
   Ok: (data?: any, headers: Headers = {}): ExtendedResult => ({
     statusCode: HTTP_STATUS_CODES.OK,
-    body: data,
-    headers: headers,
+    body: Utils.toJSON(data),
+    headers,
   }),
   Created: (data?: any, headers: Headers = {}): ExtendedResult => ({
     statusCode: HTTP_STATUS_CODES.CREATED,
-    body: data,
-    headers: headers,
+    body: Utils.toJSON(data),
+    headers,
   }),
   NoContent: (headers: Headers = {}): ExtendedResult => ({
     statusCode: HTTP_STATUS_CODES.NO_CONTENT,
     body: "",
-    headers: headers,
+    headers,
   }),
   BadRequest: (data?: any, headers: Headers = {}): ExtendedResult => ({
     statusCode: HTTP_STATUS_CODES.BAD_REQUEST,
-    body: data || "Bad Request",
-    headers: headers,
+    body: data ? Utils.toJSON(data) : "Bad Request",
+    headers,
   }),
   Unauthorized: (headers: Headers = {}): ExtendedResult => ({
     statusCode: HTTP_STATUS_CODES.UNAUTHORIZED,
     body: "Unauthorized",
-    headers: headers,
+    headers,
   }),
   NotFound: (data?: any, headers: Headers = {}): ExtendedResult => ({
     statusCode: HTTP_STATUS_CODES.NOT_FOUND,
-    body: data || "Not Found",
-    headers: headers,
+    body: data ? Utils.toJSON(data) : "Not Found",
+    headers,
   }),
   Conflict: (data?: any, headers: Headers = {}): ExtendedResult => ({
     statusCode: HTTP_STATUS_CODES.CONFLICT,
-    body: data || "Conflict",
-    headers: headers,
+    body: data ? Utils.toJSON(data) : "Conflict",
+    headers,
   }),
   UnprocessableEntity: (data?: any, headers: Headers = {}): ExtendedResult => ({
     statusCode: HTTP_STATUS_CODES.UNPROCESSABLE_ENTITY,
-    body: data || "Unprocessable Entity",
-    headers: headers,
+    body: data ? Utils.toJSON(data) : "Unprocessable Entity",
+    headers,
   }),
   InternalServerError: (data?: any, headers: Headers = {}): ExtendedResult => ({
     statusCode: HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR,
-    body: data || "Internal Server Error",
-    headers: headers,
+    body: data ? Utils.toJSON(data) : "Internal Server Error",
+    headers,
   }),
   NotImplemented: (headers: Headers = {}): ExtendedResult => ({
     statusCode: HTTP_STATUS_CODES.NOT_IMPLEMENTED,
     body: "Not Implemented",
-    headers: headers,
+    headers,
   }),
   ServiceUnavailable: (headers: Headers = {}): ExtendedResult => ({
     statusCode: HTTP_STATUS_CODES.SERVICE_UNAVAILABLE,
     body: "Service Unavailable",
-    headers: headers,
+    headers,
   }),
   Forbidden: (data?: any, headers: Headers = {}): ExtendedResult => ({
     statusCode: HTTP_STATUS_CODES.FORBIDDEN,
-    body: data || "Forbidden",
-    headers: headers,
+    body: data ? Utils.toJSON(data) : "Forbidden",
+    headers,
   }),
 };
 

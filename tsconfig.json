@@ -17,15 +17,12 @@
     "skipLibCheck": true,
     "typeRoots": [
       "./node_modules/@types",
-      "./src/@types"
+      "./src/types",
     ],
     "types": [
       "node",
       "jest",
-      "express",
-      "object.extensions",
-      "string.extensions",
-      "array.extensions",
+      "express"
     ]
   },
   "exclude": [
